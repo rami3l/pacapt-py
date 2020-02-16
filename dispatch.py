@@ -16,6 +16,7 @@ def dispatch(args):
         elif args.o:
             raise NotImplementedError
         elif args.s:
+            # WARNING: not working!
             sp.check_call(["brew", "list", "|", "grep"]+args.targets)
         elif args.u:
             sp.check_call(["brew", "outdated", "|", "grep"]+args.targets)
@@ -43,17 +44,13 @@ def dispatch(args):
             sp.check_call(["brew", "info"]+args.targets)
         elif args.s:
             sp.check_call(["brew", "search"]+args.targets)
-        elif args.u and args.y:
-            # pacman -Syu
-            sp.check_call(["brew", "update"])
-            sp.check_call(["brew", "upgrade"]+args.targets)
-        elif args.u:
-            # pacman -Su
-            sp.check_call(["brew", "upgrade"]+args.targets)
-        elif args.y:
-            # pacman -Sy
-            sp.check_call(["brew", "update"]+args.targets)
-
+        elif args.u or args.y:
+            if args.y:
+                # pacman -Sy
+                sp.check_call(["brew", "update"]+args.targets)
+            if args.u:
+                # pacman -Su
+                sp.check_call(["brew", "upgrade"]+args.targets)
         else:
             # pacman -Q
             raise NotImplementedError
