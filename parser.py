@@ -23,5 +23,9 @@ def run():
                         nargs='*', help='the target packages to deal with')
 
     args = parser.parse_args()
-    print(args)
+    print(
+        f"""
+        ### Debug ###
+        {args}
+        """)
     return args

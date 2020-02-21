@@ -1,5 +1,6 @@
 import subprocess as sp
 import sys
+import re
 
 
 def dispatch(args):
@@ -16,10 +17,17 @@ def dispatch(args):
         elif args.o:
             raise NotImplementedError
         elif args.s:
-            # WARNING: not working!
-            sp.check_call(["brew", "list", "|", "grep"]+args.targets)
+            out = sp.check_output(["brew", "list"]).decode("utf-8")
+            result = [ln for ln in out.splitlines()
+                      if re.search(args.targets[0], ln)]
+            for i in result:
+                print(i)
         elif args.u:
-            sp.check_call(["brew", "outdated", "|", "grep"]+args.targets)
+            out = sp.check_output(["brew", "outdated"]).decode("utf-8")
+            result = [ln for ln in out.splitlines()
+                      if re.search(args.targets[0], ln)]
+            for i in result:
+                print(i)
         else:
             # pacman -Q
             raise NotImplementedError
