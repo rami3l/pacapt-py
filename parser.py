@@ -25,7 +25,8 @@ def run():
     args = parser.parse_args()
     print(
         f"""
-        ### Debug ###
-        {args}
-        """)
+### Debug ###
+{args}
+"""
+    )
     return args

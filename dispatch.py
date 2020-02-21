@@ -51,7 +51,7 @@ def dispatch(args):
         elif args.i:
             sp.check_call(["brew", "info"]+args.targets)
         elif args.s:
-            sp.check_call(["brew", "search"]+args.targets)
+            sp.check_call(["brew", "search"]+[" ".join(args.targets)])
         elif args.u or args.y:
             if args.y:
                 # pacman -Sy
